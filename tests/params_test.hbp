@@ -1,0 +1,22 @@
+#
+# $Id: params_test.hbp
+#
+# How to compile:
+# hbmk2 params_test.hbp
+#
+
+-w2
+-gc3
+-oparams_test
+{linux}-ldl
+-lpthread
+
+../../hbexpect/lib/hbexpect.prg
+../params_class.prg
+params_test.prg
+
+# Special parameters for LINUX/GTK
+{linux}-lm
+{linux}-static
+{linux}-d__LINUX__
+{linux}-d__GTK__
