@@ -21,6 +21,7 @@ CREATE CLASS Params
         METHOD  NotFound()
         METHOD  RecordSetLength()
         METHOD  FoundMany()
+        METHOD  TableEmpty()
 
     HIDDEN:
         DATA    ahRecordSet     AS ARRAY    INIT { => }
@@ -34,16 +35,12 @@ METHOD Destroy() CLASS Params
     Self := NIL
 RETURN Self
 
-/*METHOD RecordSet( ahRecordSet ) CLASS Params
-    IF hb_IsArray(ahRecordSet)
-        ::ahRecordSet := ahRecordSet
-        ::lFound := ( ::nRecordSetLen := Len(::ahRecordSet) ) > 0
-    ENDIF
-RETURN ::ahRecordSet*/
-
 METHOD RecordSet(ahRecordSet) CLASS Params
     ::ahRecordSet := ahRecordSet IF hb_IsArray(ahRecordSet)
 RETURN ::ahRecordSet
+
+METHOD TableEmpty() CLASS Params
+RETURN ::RecordSetLength() == 0
 
 METHOD RecordSetLength() CLASS Params
 RETURN Len(::RecordSet)
@@ -56,17 +53,3 @@ RETURN ::RecordSetLength() > 1
 
 METHOD NotFound() CLASS Params
 RETURN !::Found()
-
-
-/*METHOD Found( lFound ) CLASS Params
-    ::lFound := lFound IF hb_IsLogical(lFound)
-RETURN ::lFound
-
-METHOD NotFound( lFound ) CLASS Params
-    ::lFound := lFound IF hb_IsLogical(lFound)
-RETURN !::lFound
-
-METHOD RecordSetLen( nRecordSetLen ) CLASS Params
-    ::nRecordSetLen := nRecordSetLen IF hb_IsNumeric(nRecordSetLen)
-RETURN ::nRecordSetLen*/
-
